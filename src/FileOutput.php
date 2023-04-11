@@ -35,7 +35,7 @@ final class FileOutput implements ErrorFormatter
     public const IGNORE = 'ignore';
 
     /** @var string */
-    private $link = 'editor://open/?file=%file&line=%line';
+    private $link = 'phpstorm://open?file=%file&line=%line';
 
     /**
      * @var ErrorFormatter|null
@@ -113,6 +113,7 @@ final class FileOutput implements ErrorFormatter
 
     private function generateFile(AnalysisResult $analysisResult): void
     {
+        $roorPath = __DIR__ . '../../../../../';
         $output = [
             self::UNKNOWN => [],
             self::FILES => [],
@@ -123,7 +124,7 @@ final class FileOutput implements ErrorFormatter
             }
 
             foreach ($analysisResult->getFileSpecificErrors() as $fileSpecificError) {
-                $file = $fileSpecificError->getFile();
+                $file = str_replace($roorPath, '', $fileSpecificError->getFile());
                 $line = $fileSpecificError->getLine() ?? 1;
                 $link = strtr($this->link, ['%file' => $file, '%line' => $line]);
                 $output[self::FILES][$file][] = [
