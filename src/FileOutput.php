@@ -113,7 +113,7 @@ final class FileOutput implements ErrorFormatter
 
     private function generateFile(AnalysisResult $analysisResult): void
     {
-        $roorPath = __DIR__ . '/../../../../../';
+        $roorPath = realpath(__DIR__ . '/../../../../../');
         $output = [
             self::UNKNOWN => [],
             self::FILES => [],
