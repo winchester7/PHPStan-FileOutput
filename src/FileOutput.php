@@ -35,7 +35,7 @@ final class FileOutput implements ErrorFormatter
     public const IGNORE = 'ignore';
 
     /** @var string */
-    private $link = 'phpstorm://open?file=%file&line=%line';
+    private $link = 'jetbrains://php-storm/navigate/reference?project=%project&path=%file&line=%line';
 
     /**
      * @var ErrorFormatter|null
@@ -113,7 +113,9 @@ final class FileOutput implements ErrorFormatter
 
     private function generateFile(AnalysisResult $analysisResult): void
     {
-        $roorPath = realpath(__DIR__ . '/../../../../../');
+        $rootPath = realpath(__DIR__ . '/../../../../../');
+        $project = dirname($rootPath);
+        
         $output = [
             self::UNKNOWN => [],
             self::FILES => [],
@@ -124,9 +126,9 @@ final class FileOutput implements ErrorFormatter
             }
 
             foreach ($analysisResult->getFileSpecificErrors() as $fileSpecificError) {
-                $file = str_replace($roorPath, '', $fileSpecificError->getFile());
+                $file = str_replace($rootPath, '', $fileSpecificError->getFile());
                 $line = $fileSpecificError->getLine() ?? 1;
-                $link = strtr($this->link, ['%file' => $file, '%line' => $line]);
+                $link = strtr($this->link, ['%file' => $file, '%project' => $project, '%line' => $line]);
                 $output[self::FILES][$file][] = [
                     self::ERROR => self::formatMessage($fileSpecificError->getMessage()),
                     self::LINK => $link,
