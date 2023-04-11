@@ -1,5 +1,5 @@
 {
-  "name": "winchester7/phpstan-fileoutput",
+  "name": "noximo/phpstan-fileoutput",
   "description": "An error formatter for PHPStan that exports analysis result into HTML file",
   "keywords": [
     "PHPStan",
