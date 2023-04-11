@@ -35,7 +35,7 @@ final class FileOutput implements ErrorFormatter
     public const IGNORE = 'ignore';
 
     /** @var string */
-    private $link = 'jetbrains://php-storm/navigate/reference?project=%project&path=%file&line=%line';
+    private $link = 'jetbrains://php-storm/navigate/reference?project=%project&path=%file:%line';
 
     /**
      * @var ErrorFormatter|null
